@@ -1,0 +1,22 @@
+Index: src/gd.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/gd.c	(revision d3185dcfb6cb4bcd2893a618fec0fb73f1cac5b0)
++++ src/gd.c	(revision 47428ad5807cd0783242e5614a273496b8867eb9)
+@@ -3277,6 +3277,14 @@
+ 					c = gdImageGetPixel (src, x, y);
+ 					/* Added 7/24/95: support transparent copies */
+ 					if (gdImageGetTransparent (src) == c) {
++                        if (colorMap[c] == (-1)) {
++                            colorMap[c] = gdImageColorResolveAlpha(dst,
++                                                                   gdTrueColorGetRed (c),
++                                                                   gdTrueColorGetGreen (c),
++                                                                   gdTrueColorGetBlue (c),
++                                                                   gdAlphaTransparent);
++                            gdImageColorTransparent(dst, c);
++                        }
+ 						tox += stx[x - srcX];
+ 						continue;
+ 					}
