@@ -1,0 +1,27 @@
+Index: src/gd.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/gd.c	(revision 02280625430d208c9a0325485965f47096a535ea)
++++ src/gd.c	(date 1588069575351)
+@@ -901,7 +901,7 @@
+  */
+ BGD_DECLARE(void) gdImageColorTransparent (gdImagePtr im, int color)
+ {
+-	if (color < 0) {
++	if (color < -1) {
+ 		return;
+ 	}
+ 
+@@ -912,7 +912,9 @@
+ 		if (im->transparent != -1) {
+ 			im->alpha[im->transparent] = gdAlphaOpaque;
+ 		}
+-		im->alpha[color] = gdAlphaTransparent;
++		if (color != -1) {
++			im->alpha[color] = gdAlphaTransparent;
++		}
+ 	}
+ 	im->transparent = color;
+ }
